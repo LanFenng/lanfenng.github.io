@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文描述了如何使用Jpcap开发应用程序。它解释了Jpcap中定义的函数和类，并通过展示一些示例代码来全面说明如何使用Jpcap编程。 1.0 (for Jpcap 0.7)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jpcap教程文档（翻译）">
+<meta property="og:url" content="http://example.com/2020/12/17/Jpcap%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="LanFenng&#39;s Blog">
+<meta property="og:description" content="本文描述了如何使用Jpcap开发应用程序。它解释了Jpcap中定义的函数和类，并通过展示一些示例代码来全面说明如何使用Jpcap编程。 1.0 (for Jpcap 0.7)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-17T03:04:34.000Z">
+<meta property="article:modified_time" content="2020-12-17T03:06:20.861Z">
+<meta property="article:author" content="LanFenng">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2020/12/17/Jpcap教程文档（翻译）/"/>
+
+
+
+
+
+  <title>Jpcap教程文档（翻译） | LanFenng's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5a0005ecd00b77c48cb70581321ef1d7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LanFenng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Crazy Blue</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/17/Jpcap%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headshot.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LanFenng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jpcap教程文档（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-17T11:04:34+08:00">
+                2020-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文描述了如何使用Jpcap开发应用程序。它解释了Jpcap中定义的函数和类，并通过展示一些示例代码来全面说明如何使用Jpcap编程。</p>
+<p>1.0 (for Jpcap 0.7)</p>
+<a id="more"></a>
+
+
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>本文描述了如何使用Jpcap开发应用程序。它解释了Jpcap中定义的函数和类，并通过展示一些示例代码来全面说明如何使用Jpcap编程。</p>
+<p><strong>什么是Jpcap</strong></p>
+<p>Jpcap是一个开源库，用于从Java应用程序捕获和发送网络包。它提供以下工具：</p>
+<ul>
+<li>从线路上实时捕获原始数据包 </li>
+<li>将捕获的数据包保存到脱机文件中，并从脱机文件中读取捕获的数据包</li>
+<li>自动识别数据包类型并生成相应的Java对象（用于以太网、IPv4、IPv6、ARP/RARP、TCP、UDP和ICMPv4数据包）</li>
+<li>在将数据包发送到应用程序之前，请根据用户指定的规则过滤这些数据包</li>
+<li>向网络发送原始数据包</li>
+</ul>
+<p>Jpcap基于libpcap/winpcap，用C语言和Java语言实现</p>
+<p>Jpcap已经在Microsoft Windows (98/2000/XP/Vista), Linux (Fedora, Ubuntu), Mac OS X (Darwin), FreeBSD和Solaris上进行了测试。</p>
+<p><strong>使用Jpcap可以开发什么样的应用程序</strong></p>
+<p>Jpcap可用于开发多种网络应用，包括（但不限于）：</p>
+<ul>
+<li>网络和协议分析器</li>
+<li>网络监视器</li>
+<li>交换记录（traffic loggers）</li>
+<li>交换发生器（traffic generators）</li>
+<li>用户级网桥和路由器</li>
+<li>网络入侵检测系统（NIDS）</li>
+<li>网络扫描仪</li>
+<li>安全工具</li>
+</ul>
+<p><strong>Jpcap不能做什么</strong></p>
+<p>Jpcap独立于主机协议（如TCP/IP）捕获和发送数据包。这意味着Jpcap不会（不能）阻止、过滤或操纵同一台机器上其他程序生成的流量：它只是“嗅探”在网上传输的数据包。因此，它不能为流量整形器、QoS调度程序和个人防火墙等应用程序提供适当的支持。</p>
+<hr>
+<h1 id="Jpcap教程：使用Jpcap的分步指南"><a href="#Jpcap教程：使用Jpcap的分步指南" class="headerlink" title="Jpcap教程：使用Jpcap的分步指南"></a>Jpcap教程：使用Jpcap的分步指南</h1><h2 id="获取网络接口列表"><a href="#获取网络接口列表" class="headerlink" title="获取网络接口列表"></a>获取网络接口列表</h2><p>当您想从网络中捕获数据包时，您首先要做的是获取计算机上的网络接口列表。为此，Jpcap提供了JpcapCaptor.getDeviceList()方法。它返回NetworkInterface对象的数组。</p>
+<p>NetworkInterface对象包含有关相应网络接口的一些信息，例如其名称、描述、IP和MAC地址以及datatlink名称和说明。</p>
+<p>下面的示例代码获取网络接口的列表并打印出它们的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获取网络接口列表</span><br><span class="line"> */</span><br><span class="line">public static void <span class="function"><span class="title">ObtainNetworkInterfacesList</span></span>() &#123;</span><br><span class="line">    //获取网络接口列表</span><br><span class="line">    NetworkInterface[] devices= JpcapCaptor.getDeviceList();</span><br><span class="line">    //循环遍历每个网络接口</span><br><span class="line">    <span class="keyword">for</span> (int i = 0; i &lt; devices.length; i++) &#123;</span><br><span class="line">        //打印接口的名称和描述</span><br><span class="line">        System.out.println(i+<span class="string">&quot;: &quot;</span>+devices[i].name+<span class="string">&quot;(&quot;</span>+devices[i].description+<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        //打印数据链路的名称和描述</span><br><span class="line">        System.out.println(<span class="string">&quot;    datalink: &quot;</span>+devices[i].datalink_name+<span class="string">&quot;(&quot;</span>+devices[i].datalink_description+<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        //打印它的MAC地址</span><br><span class="line">        System.out.print(<span class="string">&quot;    MAC Address:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (byte b : devices[i].mac_address) &#123;</span><br><span class="line">            System.out.print(Integer.toHexString(b&amp;0xff)+<span class="string">&quot;:&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        //打印它的IP地址（address），子网掩码（subnet），广播地址（broadcast）</span><br><span class="line">        <span class="keyword">for</span> (NetworkInterfaceAddress a : devices[i].addresses) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;    address:&quot;</span>+a.address+<span class="string">&quot; &quot;</span>+a.subnet+<span class="string">&quot; &quot;</span>+a.broadcast);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>此示例代码可能会显示如下结果（在windows上）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0: \Device\NPF_&#123;C3F5996D-FB82-4311-A205-25B7761897B9&#125;(VMware Virtual Ethernet Adapter)</span><br><span class="line">    data link:EN10MB(Ethernet)</span><br><span class="line">    MAC address:0:50:56:c0:0:1:</span><br><span class="line">    address:/fe80:0:0:0:3451:e274:322a:fd9f null null</span><br><span class="line">    address:/172.16.160.1 /255.255.255.0 /255.255.255.255</span><br></pre></td></tr></table></figure>
+
+<p><strong>或着这样的结果（在Linux/UNIX上）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 : eth0(null)</span><br><span class="line">    datalink: EN10MB(Ethernet)</span><br><span class="line">    MAC address:0:c:29:fb:6c:df:</span><br><span class="line">    address:/172.16.32.129 /255.255.255.0 / 172.16.32.255</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="打开网络接口"><a href="#打开网络接口" class="headerlink" title="打开网络接口"></a>打开网络接口</h2><p>获得网络接口列表并选择要捕获数据包的网络接口后，可以使用JpcapCaptor.openDevice()方法。下面的代码演示了如何打开网络接口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NetworkInterface[] devices = JpcapCaptor.getDeviceList();</span><br><span class="line">int index=...;  // <span class="built_in">set</span> index of the interface that you want to open.</span><br><span class="line"></span><br><span class="line">//Open an interface with openDevice(NetworkInterface intrface, int snaplen, boolean promics, int to_ms)</span><br><span class="line">JpcapCaptor captor=JpcapCaptor.openDevice(device[index], 65535, <span class="literal">false</span>, 20);</span><br></pre></td></tr></table></figure>
+
+<p>当调用JpcapCaptor.openDevice()方法，可以指定以下参数：</p>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">NetworkInterface intrface</td>
+<td align="center">要打开的网络接口</td>
+</tr>
+<tr>
+<td align="center">int snaplen</td>
+<td align="center">一次捕获的最大字节数</td>
+</tr>
+<tr>
+<td align="center">boolean promics</td>
+<td align="center">如果要以混杂模式打开接口，则为True，否则为false</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">在混杂模式下，您可以从线路上捕获每个数据包，即使其源或目标MAC地址与您正在打开的接口的MAC地址不相同</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">在非混杂模式下，只能捕获主机发送和接收的数据包</td>
+</tr>
+<tr>
+<td align="center">int to_ms</td>
+<td align="center">设置捕获超时值以毫秒为单位</td>
+</tr>
+</tbody></table>
+<p>JpcapCaptor.openDevice())返回JpcapCaptor的实例。然后，您可以调用JpcapCaptor类的几个方法来实际从网络接口捕获数据包。</p>
+<hr>
+<h2 id="从网络接口捕获数据包"><a href="#从网络接口捕获数据包" class="headerlink" title="从网络接口捕获数据包"></a>从网络接口捕获数据包</h2><p>一旦获得了JpcapCaptor的实例，就可以从接口捕获数据包。</p>
+<p>使用JpcapCaptor实例捕获数据包有两种主要方法：使用回调方法和逐个捕获数据包。</p>
+<p><strong><em>使用回调方法</em></strong></p>
+<p>在这种方法中，实现一个回调方法来处理捕获的数据包，然后将回调方法传递给Jpcap，以便Jpcap在每次捕获数据包时都回调它。让我们看看如何详细地执行此方法。</p>
+<p>首先，通过定义一个实现PacketReceiver接口的新类来实现回调方法。PacketReceiver接口定义了receivePacket()方法，因此需要在类中实现receivePacket()方法。</p>
+<p>下面的类实现了一个receivePacket()方法，该方法只输出捕获的数据包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class PacketPrinter implements PacketReceiver &#123;</span><br><span class="line">  //this method is called every time Jpcap captures a packet</span><br><span class="line">  public void receivePacket(Packet packet) &#123;</span><br><span class="line">    //just <span class="built_in">print</span> out a captured packet</span><br><span class="line">    System.out.println(packet);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，你可以调用任何一个JpcapCaptor.processPacket()或JpcapCaptor.loopPacket()方法开始使用回调方法捕获。调用processPacket()或loopPacket()方法时，还可以指定在该方法返回之前要捕获的数据包数。您可以指定-1继续无限量地捕获数据包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JpcapCaptor captor=JpcapCaptor.openDevice(device[index], 65535, <span class="literal">false</span>, 20);</span><br><span class="line"></span><br><span class="line">//call processPacket() to <span class="built_in">let</span> Jpcap call PacketPrinter.receivePacket() <span class="keyword">for</span> every packet capture.</span><br><span class="line">captor.processPacket(10,new PacketPrinter());</span><br><span class="line"></span><br><span class="line">captor.close();</span><br></pre></td></tr></table></figure>
+
+<p>回调的两个方法processPacket()和loopPacket()非常相似。通常您可能希望使用processPacket()，因为它支持超时和非阻塞模式，而loopPacket()不支持。</p>
+<p><strong><em>逐个捕获数据包</em></strong></p>
+<p>使用回调方法有点棘手，因为您不知道Jpcap何时调用回调方法。如果不想使用回调方法，也可以使用JpcapCaptor.getPacket()方法。</p>
+<p>方法只返回一个捕获的包。您可以（或必须）多次调用getPacket()方法来捕获连续的数据包。</p>
+<p>下面的示例代码还输出捕获的包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JpcapCaptor captor=JpcapCaptor.openDevice(device[index], 65535, <span class="literal">false</span>, 20);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">  //capture a single packet and <span class="built_in">print</span> it out</span><br><span class="line">  System.out.println(captor.getPacket());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">captor.close();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="设置捕获筛选器"><a href="#设置捕获筛选器" class="headerlink" title="设置捕获筛选器"></a>设置捕获筛选器</h2><p>在Jpcap中，您可以设置一个过滤器，这样Jpcap就不会捕获不需要的包。例如，如果只想捕获TCP/IPv4数据包，可以按如下方式设置筛选器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JpcapCaptor captor=JpcapCaptor.openDevice(device[index], 65535, <span class="literal">false</span>, 20);</span><br><span class="line">//<span class="built_in">set</span> a filter to only capture TCP/IPv4 packets</span><br><span class="line">captor.setFilter(<span class="string">&quot;ip and tcp&quot;</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p>过滤器表达式“ip和tcp”意味着“只保留同时是IPv4和tcp的包并将它们传递给应用程序”。</p>
+<p>通过正确设置筛选器，可以减少要检查的数据包数，从而提高应用程序的性能。</p>
+<hr>
+<h2 id="将捕获的数据包保存到文件中"><a href="#将捕获的数据包保存到文件中" class="headerlink" title="将捕获的数据包保存到文件中"></a>将捕获的数据包保存到文件中</h2><p>您可以将捕获的数据包保存到二进制文件中，以便以后可以使用Jpcap或其他支持读取tcpdump格式文件的应用程序检索它们。</p>
+<p>要保存捕获的数据包，首先需要通过调用JpcapWriter.openDumpFile()方法，其中包含用于捕获数据包的jpcaptor实例和字符串文件名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JpcapCaptor captor=JpcapCaptor.openDevice(device[index], 65535, <span class="literal">false</span>, 20);</span><br><span class="line">//open a file to save captured packets</span><br><span class="line">JpcapWriter writer=JpcapWriter.openDumpFile(captor,<span class="string">&quot;yourfilename&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>通过openDumpFile()方法获得JpcapWriter的实例后，可以使用JpcapWriter.writePacket()方法。当你保存了所有要保存的数据包后，你需要调用JpcapWriter.close()方法关闭打开的文件。</p>
+<p>下面的示例代码结合上面的代码，捕获并保存捕获的前100个包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">  //capture a single packet</span><br><span class="line">  Packet packet=captor.getPacket();</span><br><span class="line">  //save it into the opened file</span><br><span class="line">  writer.writePacket(packet);</span><br><span class="line">&#125;</span><br><span class="line">writer.close();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="从文件中读取保存的数据包"><a href="#从文件中读取保存的数据包" class="headerlink" title="从文件中读取保存的数据包"></a>从文件中读取保存的数据包</h2><p>在Jpcap中，可以读取你使用JpcapWriter保存的数据包，通过使用JpcapCaptor.openFile()方法打开文件。类似JpcapCaptor.openDevice()方法，JpcapCaptor.openFile()方法还返回JpcapCaptor类的实例。因此，您可以使用“从网络接口捕获数据包”部分中描述的相同方法从文件中读取数据包。例如，可以从文件中读取和打印保存的数据包，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//open a file to <span class="built_in">read</span> saved packets</span><br><span class="line">JpcapCaptor captor=JpcapCaptor.openFile(<span class="string">&quot;yourfilename&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">  //<span class="built_in">read</span> a packet from the opened file</span><br><span class="line">  Packet packet=captor.getPacket();</span><br><span class="line">  //<span class="keyword">if</span> some error occurred or EOF has reached, <span class="built_in">break</span> the loop</span><br><span class="line">  <span class="keyword">if</span>(packet==null || packet==Packet.EOF) <span class="built_in">break</span>;</span><br><span class="line">  //otherwise, <span class="built_in">print</span> out the packet</span><br><span class="line">  System.out.println(packet);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">captor.close();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="通过网络接口发送数据包"><a href="#通过网络接口发送数据包" class="headerlink" title="通过网络接口发送数据包"></a>通过网络接口发送数据包</h2><p>您也可以使用Jpcap向网络发送数据包。要发送数据包，您需要通过调用JpcapSender.openDevice()或JpcapCaptor.getJpcapSenderInstance()方法。</p>
+<p>一旦获得了JpcapSender的实例，就可以将Packet类的实例传递给JpcapSender.sendPacket()方法。</p>
+<p>下面的示例代码将TCP/IPv4/Ethernet数据包发送到网络接口上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//open a network interface to send a packet to</span><br><span class="line">JpcapSender sender=JpcapSender.openDevice(devices[index]);</span><br><span class="line"></span><br><span class="line">//create a TCP packet with specified port numbers, flags, and other parameters</span><br><span class="line">TCPPacket p=new TCPPacket(12,34,56,78,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="literal">true</span>,10,10);</span><br><span class="line"></span><br><span class="line">//specify IPv4 header parameters</span><br><span class="line">p.setIPv4Parameter(0,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,0,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,0,1010101,100,IPPacket.IPPROTO_TCP,</span><br><span class="line">  InetAddress.getByName(<span class="string">&quot;www.microsoft.com&quot;</span>),InetAddress.getByName(<span class="string">&quot;www.google.com&quot;</span>));</span><br><span class="line"></span><br><span class="line">//<span class="built_in">set</span> the data field of the packet</span><br><span class="line">p.data=(<span class="string">&quot;data&quot;</span>).getBytes();</span><br><span class="line"></span><br><span class="line">//create an Ethernet packet (frame)</span><br><span class="line">EthernetPacket ether=new EthernetPacket();</span><br><span class="line">//<span class="built_in">set</span> frame <span class="built_in">type</span> as IP</span><br><span class="line">ether.frametype=EthernetPacket.ETHERTYPE_IP;</span><br><span class="line">//<span class="built_in">set</span> <span class="built_in">source</span> and destination MAC addresses</span><br><span class="line">ether.src_mac=new byte[]&#123;(byte)0,(byte)1,(byte)2,(byte)3,(byte)4,(byte)5&#125;;</span><br><span class="line">ether.dst_mac=new byte[]&#123;(byte)0,(byte)6,(byte)7,(byte)8,(byte)9,(byte)10&#125;;</span><br><span class="line"></span><br><span class="line">//<span class="built_in">set</span> the datalink frame of the packet p as ether</span><br><span class="line">p.datalink=ether;</span><br><span class="line"></span><br><span class="line">//send the packet p</span><br><span class="line">sender.sendPacket(p);</span><br><span class="line"></span><br><span class="line">sender.close();</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/03/IntelliJ-IDEA%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="next" title="IntelliJ IDEA使用">
+                <i class="fa fa-chevron-left"></i> IntelliJ IDEA使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/17/%E4%BD%BF%E7%94%A8Jpcap%E8%8E%B7%E5%8F%96TCP%E6%95%B0%E6%8D%AE%E5%8C%85/" rel="prev" title="使用Jpcap获取TCP数据包">
+                使用Jpcap获取TCP数据包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headshot.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LanFenng</span>
+
+  
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
